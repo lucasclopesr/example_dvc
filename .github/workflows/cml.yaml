@@ -37,4 +37,7 @@ jobs:
 
           cat metrics.txt >> report.md
           cml-publish confusion_matrix.png --md >> report.md
+
+          dvc plots diff --target scores.json -x recall -y precision --show-vega dvc-experiments > vega.json
+          vl2png vega.json -s 1.5 | cml-publish --md >> report.md
           cml-send-comment report.md
