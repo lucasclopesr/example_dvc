@@ -4,6 +4,8 @@ import pickle
 import numpy as np
 import yaml
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import plot_confusion_matrix
+import matplotlib.pyplot as plt
 
 params = yaml.safe_load(open('params.yaml'))['train']
 
@@ -37,3 +39,13 @@ clf.fit(x, labels)
 
 with open(output, 'wb') as fd:
     pickle.dump(clf, fd)
+
+acc = clf.score(x, labels)
+print(acc)
+with open("metrics.txt", 'w') as outfile:
+    outfile.write("Accuracy: " + str(acc) + "\n")
+
+
+# Plot it
+disp = plot_confusion_matrix(clf, x, labels, normalize='true',cmap=plt.cm.Blues)
+plt.savefig('confusion_matrix.png')
