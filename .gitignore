@@ -1,2 +1,4 @@
 .venv/
 /model.pkl
+confusion_matrix.png
+metrics.txt
